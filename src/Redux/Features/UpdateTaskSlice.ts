@@ -12,7 +12,7 @@ export interface UpdateTaskProps {
   time_zone: number;
   task_msg: string;
   dispatch?: any;
-  id?: string
+  id?: string;
 }
 
 interface initState {
@@ -47,7 +47,7 @@ export const updateTaskFeature = createAsyncThunk(
         }
       );
       if (response.data.code === 202) {
-        dispatch(getTasksFeature);
+        dispatch(getTasksFeature());
         dispatch(toggleTaskAdder());
         dispatch(updateToggle(false));
         return response?.data?.results;

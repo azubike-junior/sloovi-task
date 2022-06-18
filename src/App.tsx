@@ -1,12 +1,7 @@
 import React from "react";
 import Login from "./pages/Login";
 import Tasks from "./pages/Tasks";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {

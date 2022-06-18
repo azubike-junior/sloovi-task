@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 function Tasks() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getTasksFeature());
   }, []);

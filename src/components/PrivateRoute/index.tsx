@@ -1,4 +1,3 @@
-import { JsxElement } from "typescript";
 import { Navigate } from "react-router-dom";
 
 export function PrivateRoute({ children }: any) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleTaskAdder } from "../../Redux/Features/AddTaskSlice";
@@ -8,7 +8,7 @@ import { getTasksFeature } from "./../../Redux/Features/GetTasksSlice";
 
 const TaskHeader = () => {
   const dispatch = useDispatch();
-  const { data, loading } = useSelector((state: RootState) => state.getTasks);
+  const { data } = useSelector((state: RootState) => state.getTasks);
 
   return (
     <div className="flex w-96 h-12 border border-stone-300 rounded-sm justify-between bg-slate-50 items-center">

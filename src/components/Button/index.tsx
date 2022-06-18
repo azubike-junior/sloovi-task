@@ -5,13 +5,12 @@ type ButtonProp = {
   child: any;
   className: string;
   onClick?: any
-  toggleUpdate?: boolean
 };
 
-export const Button = ({ type, child, toggleUpdate, className, onClick }: ButtonProp) => {
+export const Button = ({ type, child, className, onClick }: ButtonProp) => {
   return (
     <button onClick={onClick} type={type} className={className}>
-      {toggleUpdate ? "Edit" : child}
+      {child}
     </button>
   );
 };

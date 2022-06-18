@@ -70,10 +70,10 @@ const TaskAdder: FC<{}> = () => {
 
   const updateTaskHandler = () => {
     const updatedData = {
-      assigned_user: data?.assigned_user,
-      task_date: data.task_date,
-      task_time: data.task_time,
-      task_msg: data.task_msg,
+      assigned_user: data?.user_id,
+      task_date: taskData.task_date ? taskData.task_date : data.task_date,
+      task_time: taskData.task_time ? taskData.task_time : data.task_time,
+      task_msg: taskData.task_msg ? taskData.task_msg : data.task_msg,
       is_completed: 0,
       time_zone: convertTimeZoneSeconds(data.task_date),
       dispatch,
@@ -175,9 +175,8 @@ const TaskAdder: FC<{}> = () => {
                     onClick={() => {
                       toggleUpdate ? updateTaskHandler() : taskHandler();
                     }}
-                    toggleUpdate={toggleUpdate}
                     type="button"
-                    child={loading ? <Loader /> : "Save" }
+                    child={loading ? <Loader /> : "Save"}
                     className="text-base bg-green-500 px-8 py-1.5 rounded-md text-white"
                   />
                 </div>
