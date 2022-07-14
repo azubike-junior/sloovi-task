@@ -114,7 +114,6 @@ const TaskAdder: FC<{}> = () => {
     dispatch(getUserDetailsFeature());
   }, []);
 
-  console.log(".....data", userDetails?.data);
 
   return (
     <div className="bg-cyan-50 w-96 h-500 mt-28 mx-auto md:ml-10 overflow-auto">

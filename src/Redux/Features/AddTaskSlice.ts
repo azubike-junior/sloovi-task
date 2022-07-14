@@ -36,7 +36,6 @@ export const addTaskFeature = createAsyncThunk(
     { dispatch, setTaskData, ...data }: AddTaskProps,
     { rejectWithValue }
   ) => {
-    console.log(">>>>data for feture", data)
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
