@@ -1,5 +1,5 @@
-import React, { FC, useState } from "react";
-import { InputField } from "../InputField";
+import React, { FC, useEffect, useState } from "react";
+import { InputField, SelectField } from "../InputField";
 import TaskHeader from "./../TaskHeader/index";
 import { RiCalendarEventLine } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -19,20 +19,24 @@ import {
   updateTaskFeature,
   updateToggle,
 } from "../../Redux/Features/UpdateTaskSlice";
+import { getUserDetailsFeature } from "./../../Redux/Features/GetAssignedUserDetails";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const TaskAdder: FC<{}> = () => {
   const dispatch = useDispatch();
-  const { openTask, loading } = useSelector(
+  const { openTask, loading: addTaskLoading } = useSelector(
     (state: RootState) => state.addTask
   );
-  const { toggleUpdate } = useSelector((state: RootState) => state.updateTask);
+  const { toggleUpdate, loading: updateTaskLoading } = useSelector(
+    (state: RootState) => state.updateTask
+  );
   const { data, loading: singleTaskLoading } = useSelector(
     (state: RootState) => state.getSingleTask
   );
-
-  const user_id = JSON.stringify(localStorage.getItem("user_id"));
+  const { data: userDetails } = useSelector(
+    (state: RootState) => state.getUserDetails
+  );
 
   const [taskData, setTaskData] = useState<{
     task_msg: string;
@@ -56,7 +60,7 @@ const TaskAdder: FC<{}> = () => {
     }
 
     const data = {
-      assigned_user: user_id,
+      assigned_user,
       task_date,
       task_time: convertTimeToSeconds(task_time),
       task_msg,
@@ -70,9 +74,11 @@ const TaskAdder: FC<{}> = () => {
 
   const updateTaskHandler = () => {
     const updatedData = {
-      assigned_user: data?.user_id,
+      assigned_user: userDetails?.data[0].id,
       task_date: taskData.task_date ? taskData.task_date : data.task_date,
-      task_time: taskData.task_time ? taskData.task_time : data.task_time,
+      task_time: taskData.task_time
+        ? convertTimeToSeconds(taskData.task_time)
+        : data.task_time,
       task_msg: taskData.task_msg ? taskData.task_msg : data.task_msg,
       is_completed: 0,
       time_zone: convertTimeZoneSeconds(data.task_date),
@@ -87,6 +93,26 @@ const TaskAdder: FC<{}> = () => {
     task_id: data?.id,
     dispatch,
   };
+
+  const displaySaveBtn = () => {
+    if (addTaskLoading) {
+      return <Loader />;
+    } else {
+      return "Save";
+    }
+  };
+
+  const displayUpdateBtn = () => {
+    if (updateTaskLoading) {
+      return <Loader />;
+    } else {
+      return "Update";
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getUserDetailsFeature());
+  }, []);
 
   return (
     <div className="bg-cyan-50 w-96 h-500 mt-28 mx-auto md:ml-10 overflow-auto">
@@ -135,15 +161,16 @@ const TaskAdder: FC<{}> = () => {
                 />
               </div>
 
-              <InputField
+              <SelectField
                 name="assigned_user"
                 type="text"
                 className="w-full py-2 px-3 outline-none "
                 label="Assign User"
-                child={taskData?.assigned_user}
                 onChange={handleChange}
                 value={data?.assigned_user_name}
+                user_id={data?.assigned_user}
                 toggleUpdate={toggleUpdate}
+                options={userDetails?.data}
               />
 
               <div className="flex pt-7 pr-3 justify-end items-center">
@@ -155,7 +182,7 @@ const TaskAdder: FC<{}> = () => {
                     <BsFillTrashFill className="cursor-pointer text-xl text-gray-400" />
                   </div>
                 )}
-                <div className="flex justify-end pl-36">
+                <div className="flex justify-end pl-32">
                   <Button
                     type="button"
                     child="Cancel"
@@ -176,7 +203,7 @@ const TaskAdder: FC<{}> = () => {
                       toggleUpdate ? updateTaskHandler() : taskHandler();
                     }}
                     type="button"
-                    child={loading ? <Loader /> : "Save"}
+                    child={toggleUpdate ? displayUpdateBtn() : displaySaveBtn()}
                     className="text-base bg-green-500 px-8 py-1.5 rounded-md text-white"
                   />
                 </div>

@@ -7,6 +7,7 @@ import type {} from "redux-thunk/extend-redux";
 import GetTasksReducer from "./Features/GetTasksSlice";
 import UpdateTaskReducer from "./Features/UpdateTaskSlice";
 import GetSingleTaskReducer from "./Features/GetSingleTaskSlice";
+import getUserDetailsReducer from "./Features/GetAssignedUserDetails";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     addTask: AddTaskReducer,
     getTasks: GetTasksReducer,
     updateTask: UpdateTaskReducer,
-    getSingleTask: GetSingleTaskReducer
+    getSingleTask: GetSingleTaskReducer,
+    getUserDetails: getUserDetailsReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>

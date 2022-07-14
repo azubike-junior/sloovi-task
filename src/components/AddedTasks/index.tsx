@@ -10,6 +10,7 @@ import { updateToggle } from "../../Redux/Features/UpdateTaskSlice";
 import { useDispatch } from "react-redux";
 import { getSingleTasksFeature } from "./../../Redux/Features/GetSingleTaskSlice";
 import Loader from "./../Loader/index";
+import { getUserDetailsFeature } from "./../../Redux/Features/GetAssignedUserDetails";
 
 export const AddedTasks = () => {
   const dispatch = useDispatch();
@@ -41,8 +42,9 @@ export const AddedTasks = () => {
                     dispatch(getSingleTasksFeature(item.id));
                     dispatch(updateToggle(true));
                     dispatch(toggleTaskAdder());
+                    dispatch(getUserDetailsFeature());
                   }}
-                  className="editBtn mr-4 border-2 h-8 p-2 rounded "
+                  className="editBtn mr-4 border-2 h-8 p-2 rounded"
                 >
                   <MdOutlineModeEdit className="editBtn" />
                 </div>

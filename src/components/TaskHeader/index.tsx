@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleTaskAdder } from "../../Redux/Features/AddTaskSlice";
+import { getUserDetailsFeature } from "../../Redux/Features/GetAssignedUserDetails";
 import { updateToggle } from "../../Redux/Features/UpdateTaskSlice";
 import { RootState } from "../../Redux/store";
 import { getTasksFeature } from "./../../Redux/Features/GetTasksSlice";
@@ -20,6 +21,7 @@ const TaskHeader = () => {
           dispatch(updateToggle(false));
           dispatch(getTasksFeature());
           dispatch(toggleTaskAdder());
+          dispatch(getUserDetailsFeature());
         }}
         className="px-3 h-12 pt-1 text-2xl cursor-pointer border border-r-0 border-y-0 border-stone-300"
       >

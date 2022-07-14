@@ -5,6 +5,7 @@ import Header from "./../../components/Header";
 import TaskAdder from "./../../components/Task";
 import { getTasksFeature } from "./../../Redux/Features/GetTasksSlice";
 import { useNavigate } from "react-router-dom";
+import { getUserDetailsFeature } from "../../Redux/Features/GetAssignedUserDetails";
 
 function Tasks() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Tasks() {
         <TaskAdder />
         <Button
           onClick={() => {
-            localStorage.clear()
+            localStorage.clear();
             navigate("/");
           }}
           type="button"
