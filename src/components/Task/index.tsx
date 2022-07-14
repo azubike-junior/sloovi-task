@@ -114,6 +114,8 @@ const TaskAdder: FC<{}> = () => {
     dispatch(getUserDetailsFeature());
   }, []);
 
+  console.log(".....data", userDetails?.data);
+
   return (
     <div className="bg-cyan-50 w-96 h-500 mt-28 mx-auto md:ml-10 overflow-auto">
       <TaskHeader />
@@ -168,7 +170,7 @@ const TaskAdder: FC<{}> = () => {
                 label="Assign User"
                 onChange={handleChange}
                 value={data?.assigned_user_name}
-                user_id={data?.assigned_user}
+                user_id={data?.user_id}
                 toggleUpdate={toggleUpdate}
                 options={userDetails?.data}
               />

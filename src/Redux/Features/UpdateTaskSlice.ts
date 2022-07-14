@@ -46,7 +46,7 @@ export const updateTaskFeature = createAsyncThunk(
           },
         }
       );
-      console.log(">>>>response", response.data)
+
       if (response.data.code === 202) {
         dispatch(getTasksFeature());
         dispatch(toggleTaskAdder());
